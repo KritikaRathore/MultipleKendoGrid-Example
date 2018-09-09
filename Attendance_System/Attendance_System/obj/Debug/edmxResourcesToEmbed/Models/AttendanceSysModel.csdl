@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AttendanceSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Attendance">
+    <Key>
+      <PropertyRef Name="AttendanceID" />
+    </Key>
+    <Property Name="AttendanceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StudentID" Type="Int32" Nullable="false" />
+    <Property Name="ClassSchduleID" Type="Int32" Nullable="false" />
+    <Property Name="ClassDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Class_Schedule" Relationship="Self.FK_Attendance_Class_Schedule" FromRole="Attendance" ToRole="Class_Schedule" />
+    <NavigationProperty Name="Student" Relationship="Self.FK_Attendance_Student" FromRole="Attendance" ToRole="Student" />
+  </EntityType>
+  <EntityType Name="Class_Schedule">
+    <Key>
+      <PropertyRef Name="ClassScheduleID" />
+    </Key>
+    <Property Name="ClassScheduleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClassID" Type="Int32" Nullable="false" />
+    <Property Name="SubjectID" Type="Int32" Nullable="false" />
+    <Property Name="TeacherID" Type="Int32" Nullable="false" />
+    <Property Name="StartTime" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="EndTime" Type="Time" Nullable="false" Precision="7" />
+    <NavigationProperty Name="Attendances" Relationship="Self.FK_Attendance_Class_Schedule" FromRole="Class_Schedule" ToRole="Attendance" />
+    <NavigationProperty Name="Class_Tbl" Relationship="Self.FK_Class_Schedule_Class" FromRole="Class_Schedule" ToRole="Class_Tbl" />
+    <NavigationProperty Name="Subject" Relationship="Self.FK_Class_Schedule_Subject" FromRole="Class_Schedule" ToRole="Subject" />
+    <NavigationProperty Name="Teacher" Relationship="Self.FK_Class_Schedule_Teacher" FromRole="Class_Schedule" ToRole="Teacher" />
+  </EntityType>
+  <EntityType Name="Class_Tbl">
+    <Key>
+      <PropertyRef Name="ClassID" />
+    </Key>
+    <Property Name="ClassID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClassName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Class_Schedule" Relationship="Self.FK_Class_Schedule_Class" FromRole="Class_Tbl" ToRole="Class_Schedule" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="StudentID" />
+    </Key>
+    <Property Name="StudentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="DateofBirth" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="AddressLine1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AddressLine2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PhoneNo" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Attendances" Relationship="Self.FK_Attendance_Student" FromRole="Student" ToRole="Attendance" />
+  </EntityType>
+  <EntityType Name="Subject">
+    <Key>
+      <PropertyRef Name="SubjectID" />
+    </Key>
+    <Property Name="SubjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Class_Schedule" Relationship="Self.FK_Class_Schedule_Subject" FromRole="Subject" ToRole="Class_Schedule" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Teacher">
+    <Key>
+      <PropertyRef Name="TeacherID" />
+    </Key>
+    <Property Name="TeacherID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FIrstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Hired_Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="PhoneNo" Type="Int32" />
+    <NavigationProperty Name="Class_Schedule" Relationship="Self.FK_Class_Schedule_Teacher" FromRole="Teacher" ToRole="Class_Schedule" />
+  </EntityType>
+  <Association Name="FK_Attendance_Class_Schedule">
+    <End Role="Class_Schedule" Type="Self.Class_Schedule" Multiplicity="1" />
+    <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Class_Schedule">
+        <PropertyRef Name="ClassScheduleID" />
+      </Principal>
+      <Dependent Role="Attendance">
+        <PropertyRef Name="ClassSchduleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Attendance_Student">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="StudentID" />
+      </Principal>
+      <Dependent Role="Attendance">
+        <PropertyRef Name="StudentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Class_Schedule_Class">
+    <End Role="Class_Tbl" Type="Self.Class_Tbl" Multiplicity="1" />
+    <End Role="Class_Schedule" Type="Self.Class_Schedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Class_Tbl">
+        <PropertyRef Name="ClassID" />
+      </Principal>
+      <Dependent Role="Class_Schedule">
+        <PropertyRef Name="ClassID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Class_Schedule_Subject">
+    <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
+    <End Role="Class_Schedule" Type="Self.Class_Schedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subject">
+        <PropertyRef Name="SubjectID" />
+      </Principal>
+      <Dependent Role="Class_Schedule">
+        <PropertyRef Name="SubjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Class_Schedule_Teacher">
+    <End Role="Teacher" Type="Self.Teacher" Multiplicity="1" />
+    <End Role="Class_Schedule" Type="Self.Class_Schedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teacher">
+        <PropertyRef Name="TeacherID" />
+      </Principal>
+      <Dependent Role="Class_Schedule">
+        <PropertyRef Name="TeacherID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Attendance_Sys_Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Attendances" EntityType="Self.Attendance" />
+    <EntitySet Name="Class_Schedule" EntityType="Self.Class_Schedule" />
+    <EntitySet Name="Class_Tbl" EntityType="Self.Class_Tbl" />
+    <EntitySet Name="Students" EntityType="Self.Student" />
+    <EntitySet Name="Subjects" EntityType="Self.Subject" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Teachers" EntityType="Self.Teacher" />
+    <AssociationSet Name="FK_Attendance_Class_Schedule" Association="Self.FK_Attendance_Class_Schedule">
+      <End Role="Class_Schedule" EntitySet="Class_Schedule" />
+      <End Role="Attendance" EntitySet="Attendances" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Attendance_Student" Association="Self.FK_Attendance_Student">
+      <End Role="Student" EntitySet="Students" />
+      <End Role="Attendance" EntitySet="Attendances" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Class_Schedule_Class" Association="Self.FK_Class_Schedule_Class">
+      <End Role="Class_Tbl" EntitySet="Class_Tbl" />
+      <End Role="Class_Schedule" EntitySet="Class_Schedule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Class_Schedule_Subject" Association="Self.FK_Class_Schedule_Subject">
+      <End Role="Subject" EntitySet="Subjects" />
+      <End Role="Class_Schedule" EntitySet="Class_Schedule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Class_Schedule_Teacher" Association="Self.FK_Class_Schedule_Teacher">
+      <End Role="Teacher" EntitySet="Teachers" />
+      <End Role="Class_Schedule" EntitySet="Class_Schedule" />
+    </AssociationSet>
+    <FunctionImport Name="DeleteStudent">
+      <Parameter Name="StudentId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetStudentByClassScheduleId" ReturnType="Collection(AttendanceSystemModel.GetStudentByClassScheduleId_Result)">
+      <Parameter Name="ClassScheduleId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetSubjectByClassId" ReturnType="Collection(AttendanceSystemModel.GetSubjectByClassId_Result)" />
+    <FunctionImport Name="InsertStudent">
+      <Parameter Name="FirstName" Mode="In" Type="String" />
+      <Parameter Name="MiddleName" Mode="In" Type="String" />
+      <Parameter Name="LastName" Mode="In" Type="String" />
+      <Parameter Name="Gender" Mode="In" Type="String" />
+      <Parameter Name="DOB" Mode="In" Type="DateTime" />
+      <Parameter Name="AddressLine1" Mode="In" Type="String" />
+      <Parameter Name="AddressLine2" Mode="In" Type="String" />
+      <Parameter Name="City" Mode="In" Type="String" />
+      <Parameter Name="Country" Mode="In" Type="String" />
+      <Parameter Name="PhoneNo" Mode="In" Type="Int32" />
+      <Parameter Name="ClassSchID" Mode="In" Type="Int32" />
+      <Parameter Name="Att" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateStudentDetails">
+      <Parameter Name="StudentID" Mode="In" Type="Int32" />
+      <Parameter Name="FirstName" Mode="In" Type="String" />
+      <Parameter Name="MiddleName" Mode="In" Type="String" />
+      <Parameter Name="LastName" Mode="In" Type="String" />
+      <Parameter Name="Gender" Mode="In" Type="String" />
+      <Parameter Name="DOB" Mode="In" Type="DateTime" />
+      <Parameter Name="AddressLine1" Mode="In" Type="String" />
+      <Parameter Name="AddressLine2" Mode="In" Type="String" />
+      <Parameter Name="City" Mode="In" Type="String" />
+      <Parameter Name="Country" Mode="In" Type="String" />
+      <Parameter Name="PhoneNo" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="GetStudentByClassScheduleId_Result">
+    <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="MiddleName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="AddressLine1" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="City" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Gender" Nullable="false" MaxLength="1" />
+    <Property Type="String" Name="Country" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="DateofBirth" Nullable="false" />
+    <Property Type="Int32" Name="PhoneNo" Nullable="false" />
+    <Property Type="Int32" Name="StudentID" Nullable="false" />
+    <Property Type="DateTime" Name="ClassDate" Nullable="false" />
+    <Property Type="Int32" Name="AttendanceID" Nullable="false" />
+    <Property Type="String" Name="Status" Nullable="false" MaxLength="1" />
+  </ComplexType>
+  <ComplexType Name="GetSubjectByClassId_Result">
+    <Property Type="Int32" Name="ClassID" Nullable="false" />
+    <Property Type="String" Name="ClassName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Description" Nullable="true" />
+    <Property Type="Int32" Name="ClassScheduleID" Nullable="false" />
+    <Property Type="Time" Name="StartTime" Nullable="false" />
+    <Property Type="Time" Name="EndTime" Nullable="false" />
+    <Property Type="Int32" Name="SubjectID" Nullable="false" />
+    <Property Type="String" Name="Title" Nullable="false" MaxLength="50" />
+  </ComplexType>
+</Schema>

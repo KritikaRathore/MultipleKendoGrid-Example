@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="317f8c9de233491bae16695a8463cd5a" Name="Diagram1">
+        <EntityTypeShape EntityType="AttendanceSystemModel.Attendance" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AttendanceSystemModel.Class_Schedule" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="AttendanceSystemModel.Class_Tbl" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AttendanceSystemModel.Student" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="AttendanceSystemModel.Subject" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AttendanceSystemModel.sysdiagram" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AttendanceSystemModel.Teacher" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <AssociationConnector Association="AttendanceSystemModel.FK_Attendance_Class_Schedule" ManuallyRouted="false" />
+        <AssociationConnector Association="AttendanceSystemModel.FK_Attendance_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="AttendanceSystemModel.FK_Class_Schedule_Class" ManuallyRouted="false" />
+        <AssociationConnector Association="AttendanceSystemModel.FK_Class_Schedule_Subject" ManuallyRouted="false" />
+        <AssociationConnector Association="AttendanceSystemModel.FK_Class_Schedule_Teacher" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

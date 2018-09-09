@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-18 col-md-12" style="height:700px;width:300px;float:left;display: inline-block;">
+            @(Html.Kendo().Grid<Attendance_System.Models.GetSubjectByClassId_Result>()
+        .Name("ClassSubjectGrid")
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.ClassScheduleID).Visible(false);
+            columns.Bound(p => p.ClassName).Width(70);
+            columns.Bound(p => p.Title).Title("Subject").Width(150);
+        })
+        .Pageable()
+        .Sortable()
+        .Scrollable()
+        .Filterable()
+        .HtmlAttributes(new { style = "height:700px;" })
+        .Selectable(selectable => selectable
+            .Mode(GridSelectionMode.Single)
+            .Type(GridSelectionType.Row))
+           .Events(events => events.Change("change"))
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .PageSize(20)
+        .Read(read => read.Action("ClassSubject_Read", "Grid"))
+        )
+            )
+        </div>
+        <div class="col-xs-18 col-md-12" style="height:700px;width:1000px;float:left;display: inline-block;">
+            @(Html.Kendo().Grid<Attendance_System.Models.GetStudentByClassScheduleId_Result>()
+        .Name("StudentGrid")
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.StudentID).Visible(false);
+            columns.Bound(p => p.FirstName).Title("First Name");
+            columns.Bound(p => p.MiddleName).Title("Middle Name");
+            columns.Bound(p => p.LastName).Title("Last Name");
+            columns.Bound(p => p.Gender).Title("Gender");
+            columns.Bound(p => p.DateofBirth).Title("DOB").Format("{0:yyyy-MM-dd}");
+            columns.Bound(p => p.City);
+            columns.Bound(p => p.Country);
+            columns.Bound(p => p.Status).Title("Attendance").Visible(false);
+            columns.Command(command => { command.Edit(); command.Destroy(); }).Width(150);//command.Destroy();
+        })
+        .Pageable()
+        .Resizable(resize => resize.Columns(true))
+        .ToolBar(toolbar => toolbar.Create())
+        .Editable(editable => editable.Mode(GridEditMode.InLine))
+        .Sortable()
+        .Scrollable()
+        .Filterable()
+        .AutoBind(false)
+        .HtmlAttributes(new { style = "height:700px;" })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .PageSize(20)
+        .Model(model =>
+        {
+            model.Id(st => st.StudentID);
+            model.Field(st => st.DateofBirth).Editable(false);
+        }
+        )
+        .Read(read => read.Action("Student_Read", "Grid").Data("data").Type(HttpVerbs.Post))
+        .Create(update => update.Action("Student_Create", "Grid"))
+        .Update(update => update.Action("Student_Update", "Grid"))
+        .Destroy(update => update.Action("Student_Destroy", "Grid"))
+        )
+            )
+        </div>
+    </div>
+</div>
